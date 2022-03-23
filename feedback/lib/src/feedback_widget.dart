@@ -2,11 +2,11 @@
 
 import 'package:feedback/feedback.dart';
 import 'package:feedback/src/controls_column.dart';
-import 'package:feedback/src/scale_and_fade.dart';
 import 'package:feedback/src/feedback_bottom_sheet.dart';
 import 'package:feedback/src/paint_on_background.dart';
 import 'package:feedback/src/painter.dart';
 import 'package:feedback/src/scale_and_clip.dart';
+import 'package:feedback/src/scale_and_fade.dart';
 import 'package:feedback/src/screenshot.dart';
 import 'package:feedback/src/theme/feedback_theme.dart';
 import 'package:feedback/src/utilities/back_button_interceptor.dart';
@@ -27,6 +27,7 @@ class FeedbackWidget extends StatefulWidget {
     required this.mode,
     required this.pixelRatio,
     required this.feedbackBuilder,
+    this.navigatorKey,
   })  : assert(
           // This way, we can have a const constructor
           // ignore: prefer_is_empty
@@ -40,6 +41,7 @@ class FeedbackWidget extends StatefulWidget {
   final double pixelRatio;
   final Widget child;
   final List<Color> drawColors;
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   final FeedbackBuilder feedbackBuilder;
 
@@ -140,6 +142,7 @@ class FeedbackWidgetState extends State<FeedbackWidget>
     // them but the background widgets need to be tap-able behind the bottom
     // sheet.
     return Navigator(
+      key: widget.navigatorKey,
       onGenerateRoute: (_) {
         return MaterialPageRoute<void>(
           builder: (context) {

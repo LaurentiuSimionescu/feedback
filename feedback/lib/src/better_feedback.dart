@@ -103,6 +103,7 @@ class BetterFeedback extends StatefulWidget {
   const BetterFeedback({
     Key? key,
     required this.child,
+    this.navigatorKey,
     this.feedbackBuilder,
     this.theme,
     this.localizationsDelegates,
@@ -117,6 +118,9 @@ class BetterFeedback extends StatefulWidget {
 
   /// The application to wrap, typically a [MaterialApp].
   final Widget child;
+
+  /// Navigator key passed to internal Navigator
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   /// Returns a widget that prompts the user for feedback and calls the provided
   /// submit function with their completed feedback. Typically, this involves
@@ -209,6 +213,7 @@ class _BetterFeedbackState extends State<BetterFeedback> {
               assert(debugCheckHasFeedbackLocalizations(context));
               return FeedbackWidget(
                 child: widget.child,
+                navigatorKey: widget.navigatorKey,
                 isFeedbackVisible: controller.isVisible,
                 drawColors: FeedbackTheme.of(context).drawColors,
                 mode: widget.mode,
